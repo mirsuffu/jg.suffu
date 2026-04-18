@@ -1,5 +1,5 @@
 /* ============================================================
-   JG. SUFFU Portfolio — index.css
+   JG. SUFFU Portfolio — index.css (Refactored)
    Theme: AMOLED Dark · Minimal · Modern · Passionate
    Fonts: Urbanist (headings) · DM Sans (body)
    Accents: Orange #FF6B00 · Blue #1E90FF
@@ -22,6 +22,13 @@
   --transition-fast: 0.25s ease;
   --transition-mid: 0.4s ease;
   --transition-slow: 0.7s ease;
+
+  /* Spacing system */
+  --section-padding-y: 6rem;
+  --section-padding-x: 2rem;
+  --content-max-width: 1100px;
+  --card-gap: 2.5rem;
+  --card-min-height: 420px;
 }
 
 /* ---------- RESET & BASE ---------- */
@@ -48,7 +55,30 @@ body {
   overflow-x: hidden;
 }
 
-/* Enforce no italic / no cursive on headings, body, UI */
+/* Themed scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--accent-orange), var(--accent-blue));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #ff8533, #3da0ff);
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-orange) var(--bg-primary);
+}
+
+/* Enforce no italic on all UI elements */
 h1, h2, h3, h4, h5, h6,
 p, span, a, li, button, input, textarea, label, div {
   font-style: normal;
@@ -85,9 +115,9 @@ input, textarea {
   color: var(--text-primary);
 }
 
-/* ---------- SCROLL MARGIN FOR NAV OFFSET ---------- */
+/* ---------- SCROLL OFFSET ---------- */
 .section {
-  scroll-margin-top: 80px;
+  scroll-margin-top: 72px;
 }
 
 /* ---------- THREE.JS BACKGROUND ---------- */
@@ -101,7 +131,9 @@ input, textarea {
   pointer-events: none;
 }
 
-/* ---------- NAVBAR ---------- */
+/* ==========================================================
+   NAVBAR
+   ========================================================== */
 #navbar {
   position: fixed;
   top: 0;
@@ -258,7 +290,9 @@ input, textarea {
   pointer-events: all;
 }
 
-/* ---------- SECTIONS (GENERAL) ---------- */
+/* ==========================================================
+   SECTION TITLES (Shared)
+   ========================================================== */
 .section {
   position: relative;
   z-index: 1;
@@ -269,7 +303,6 @@ input, textarea {
   font-weight: 800;
   text-align: center;
   margin-bottom: 3rem;
-  /* Magnetic underline draw animation — initial state set by JS */
 }
 
 .section-title .accent-orange {
@@ -282,18 +315,15 @@ input, textarea {
 
 /* Section title reveal animation */
 .section-title.reveal-ready {
-  clip-path: inset(100% 0 0 0);
-  transform: translateY(20px);
   opacity: 0;
-  transition: clip-path 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 0.7s ease;
+  transform: translateY(30px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .section-title.revealed {
-  clip-path: inset(0 0 0 0);
-  transform: translateY(0);
   opacity: 1;
+  transform: translateY(0);
 }
 
 /* Accent word underline animation */
@@ -328,9 +358,11 @@ input, textarea {
   width: 100%;
 }
 
-/* ---------- WELCOME SECTION ---------- */
-#welcome {
-  min-height: 80vh;
+/* ==========================================================
+   HOME / WELCOME SECTION
+   ========================================================== */
+#home {
+  min-height: 85vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -364,9 +396,12 @@ input, textarea {
   margin-top: 1.2rem;
   color: var(--text-secondary);
   font-weight: 500;
+  letter-spacing: 0.03em;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.8s;
 }
 
-/* Membrane Breathe — entrance animation */
+/* Membrane Breathe entrance */
 .welcome-card.animate-entrance {
   animation: membraneBreathe 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
@@ -389,17 +424,11 @@ input, textarea {
   }
 }
 
-/* Welcome subtitle clip-path wipe */
-.welcome-subtitle {
-  clip-path: inset(0 100% 0 0);
-  transition: clip-path 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.8s;
-}
-
 .welcome-card.animate-entrance .welcome-subtitle {
   clip-path: inset(0 0 0 0);
 }
 
-/* Welcome title character reveal (applied via JS) */
+/* Welcome title character reveal */
 .welcome-char {
   display: inline-block;
   opacity: 0;
@@ -412,27 +441,9 @@ input, textarea {
   filter: blur(0px);
 }
 
-/* ---------- HOME SECTION ---------- */
-#home {
-  position: relative;
-  z-index: 1;
-}
-
-.home-spacer {
-  height: 20vh;
-}
-
-.home-sub {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 6rem 5%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 2rem;
-}
-
-/* ---------- ANIMATED GRADIENT BORDER CARD ---------- */
+/* ==========================================================
+   ANIMATED GRADIENT BORDER CARD (shared)
+   ========================================================== */
 .gradient-card {
   position: relative;
   border-radius: var(--border-radius);
@@ -455,7 +466,7 @@ input, textarea {
     transparent 60%
   );
   animation: spinBorder 6s linear infinite;
-  animation-play-state: paused; /* paused by default, JS enables when visible */
+  animation-play-state: paused;
 }
 
 .gradient-card.border-active::before {
@@ -477,9 +488,41 @@ input, textarea {
 .gradient-card-content {
   position: relative;
   z-index: 10;
-  inset: var(--border-thickness);
   border-radius: calc(var(--border-radius) - var(--border-thickness));
   overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ==========================================================
+   ABOUT SECTION
+   ========================================================== */
+#about {
+  padding: var(--section-padding-y) var(--section-padding-x);
+  padding-top: 8rem;
+}
+
+/* Each row is a CSS Grid for equal-width, equal-height cards */
+.about-row {
+  max-width: var(--content-max-width);
+  margin: 0 auto 4rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--card-gap);
+  align-items: stretch;
+}
+
+.about-row:last-child {
+  margin-bottom: 0;
+}
+
+/* Card base sizing */
+.about-text-card,
+.about-media-card {
+  min-height: var(--card-min-height);
+  display: flex;
+  flex-direction: column;
 }
 
 /* Text card content */
@@ -489,11 +532,11 @@ input, textarea {
   flex-direction: column;
   text-align: left;
   align-items: flex-start;
-  min-height: 400px;
   justify-content: center;
+  flex: 1;
 }
 
-.text-card-inner h2 {
+.text-card-inner h3 {
   font-size: clamp(1.6rem, 2.5vw, 2.2rem);
   margin-bottom: 1.2rem;
   background: linear-gradient(90deg, var(--accent-blue), var(--accent-orange));
@@ -523,49 +566,69 @@ input, textarea {
   50% { opacity: 0; }
 }
 
-/* Home card widths (Desktop) */
-.home-text-card {
-  width: 58%;
-  min-height: 400px;
+/* Media card content */
+.media-card-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
 }
 
-.home-photo-card {
-  width: 40%;
-  min-height: 400px;
+.media-card-logo {
+  padding: 30px;
 }
 
-/* Parallax Slide-In — entrance animation */
-.home-text-card.reveal-ready,
-.home-photo-card.reveal-ready {
+.media-card-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.media-card-photo {
+  padding: 0;
+  overflow: hidden;
+}
+
+.media-card-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+/* Card reveal animations (slide-in from sides) */
+.about-text-card.reveal-ready,
+.about-media-card.reveal-ready {
   opacity: 0;
   transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
               transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.home-text-card.reveal-ready {
+/* Row A: text slides from left, media from right */
+#about-row-a .about-text-card.reveal-ready {
   transform: translateX(-60px);
 }
 
-.home-photo-card.reveal-ready {
+#about-row-a .about-media-card.reveal-ready {
   transform: translateX(60px);
 }
 
-/* Reversed section — flip directions */
-.reverse-mobile .home-photo-card.reveal-ready {
+/* Row B (reversed): media slides from left, text from right */
+#about-row-b .about-media-card.reveal-ready {
   transform: translateX(-60px);
 }
 
-.reverse-mobile .home-text-card.reveal-ready {
+#about-row-b .about-text-card.reveal-ready {
   transform: translateX(60px);
 }
 
-.home-text-card.revealed,
-.home-photo-card.revealed {
+.about-text-card.revealed,
+.about-media-card.revealed {
   opacity: 1;
   transform: translateX(0);
 }
 
-/* Logo image — Soft Pulse Breathe */
+/* Logo pulse animation */
 .logo-breathe {
   animation: logoPulse 4s ease-in-out infinite;
 }
@@ -581,7 +644,7 @@ input, textarea {
   }
 }
 
-/* Personal photo — Ken Burns Drift */
+/* Personal photo Ken Burns */
 .ken-burns {
   animation: kenBurnsDrift 20s ease-in-out infinite alternate;
 }
@@ -595,18 +658,18 @@ input, textarea {
   }
 }
 
-
-/* ---------- PORTFOLIO SECTION ---------- */
+/* ==========================================================
+   PORTFOLIO SECTION
+   ========================================================== */
 #portfolio {
-  padding: 6rem 0;
-  overflow: hidden;
+  padding: var(--section-padding-y) 0;
 }
 
 .carousel-wrapper {
   position: relative;
   width: 100%;
   overflow: hidden;
-  padding: 2rem 0;
+  padding: 2rem 0 3rem;
 }
 
 .carousel-track {
@@ -615,13 +678,13 @@ input, textarea {
   align-items: center;
   transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   will-change: transform;
-  padding: 0 20px;
+  padding: 2rem 20px;
 }
 
 .carousel-item {
   flex-shrink: 0;
-  width: calc((100% - 120px) / 7); /* Desktop: 7 items */
-  aspect-ratio: 1 / 1.4142; /* A4 */
+  width: calc((100% - 120px) / 7);
+  aspect-ratio: 1 / 1.4142;
   border-radius: 12px;
   overflow: hidden;
   cursor: pointer;
@@ -638,17 +701,17 @@ input, textarea {
   border-radius: 12px;
 }
 
-/* Softer depth-of-field for unfocused items */
+/* Depth-of-field for unfocused items */
 .carousel-item:not(.focused) {
   filter: blur(2px) brightness(0.65) grayscale(30%);
   transform: scale(0.85);
 }
 
-/* Focused item — bigger & prominent */
+/* Focused item */
 .carousel-item.focused {
   filter: none;
-  transform: scale(1.08);
-  box-shadow: 0 0 50px rgba(255, 107, 0, 0.12), 0 8px 32px rgba(0,0,0,0.5);
+  transform: scale(1.2);
+  box-shadow: 0 0 60px rgba(255, 107, 0, 0.2), 0 10px 40px rgba(0, 0, 0, 0.6);
   z-index: 10;
 }
 
@@ -676,7 +739,6 @@ input, textarea {
   border-color: var(--accent-orange);
 }
 
-/* Carousel arrow press effect */
 .carousel-nav:active {
   transform: translateY(-50%) scale(0.9);
 }
@@ -692,15 +754,15 @@ input, textarea {
 }
 
 @keyframes nudgeLeft {
-  0%, 85%, 100% { translate: 0 0; }
-  90% { translate: -3px 0; }
-  95% { translate: 1px 0; }
+  0%, 85%, 100% { transform: translateY(-50%) translateX(0); }
+  90% { transform: translateY(-50%) translateX(-3px); }
+  95% { transform: translateY(-50%) translateX(1px); }
 }
 
 @keyframes nudgeRight {
-  0%, 85%, 100% { translate: 0 0; }
-  90% { translate: 3px 0; }
-  95% { translate: -1px 0; }
+  0%, 85%, 100% { transform: translateY(-50%) translateX(0); }
+  90% { transform: translateY(-50%) translateX(3px); }
+  95% { transform: translateY(-50%) translateX(-1px); }
 }
 
 .carousel-nav svg {
@@ -708,7 +770,9 @@ input, textarea {
   height: 20px;
 }
 
-/* ---------- LIGHTBOX ---------- */
+/* ==========================================================
+   LIGHTBOX
+   ========================================================== */
 #lightbox {
   position: fixed;
   inset: 0;
@@ -737,9 +801,8 @@ input, textarea {
   transform-origin: center center;
 }
 
-/* Lightbox bloom entrance */
 #lightbox.open #lightbox-img {
-  animation: lightboxBloom 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: lightboxBloom 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes lightboxBloom {
@@ -776,37 +839,87 @@ input, textarea {
   border-color: var(--accent-orange);
 }
 
-/* ---------- TESTIMONIALS SECTION ---------- */
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(13, 13, 13, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5001;
+  transition: all var(--transition-fast);
+  backdrop-filter: blur(8px);
+}
+
+.lightbox-nav:hover {
+  background: var(--accent-orange);
+  border-color: var(--accent-orange);
+}
+
+.lightbox-nav:active {
+  transform: translateY(-50%) scale(0.9);
+}
+
+.lightbox-nav.prev {
+  left: 24px;
+}
+
+.lightbox-nav.next {
+  right: 24px;
+}
+
+.lightbox-nav svg {
+  width: 20px;
+  height: 20px;
+}
+
+.cursor-grabbing {
+  cursor: grabbing !important;
+}
+
+.no-transition {
+  transition: none !important;
+}
+
+/* ==========================================================
+   TESTIMONIALS SECTION
+   ========================================================== */
 #testimonials {
-  padding: 6rem 2rem;
+  padding: var(--section-padding-y) var(--section-padding-x);
 }
 
 .testimonials-grid {
-  max-width: 1100px;
+  max-width: var(--content-max-width);
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
+  align-items: start;
 }
 
 /* Center the last odd child */
 .testimonials-grid .testi-card:last-child:nth-child(odd) {
   grid-column: 1 / -1;
-  max-width: 540px;
+  max-width: 520px;
   justify-self: center;
 }
 
-/* Testimonial Card — Left border animated gradient */
+/* Testimonial Card */
 .testi-card {
   position: relative;
   background: var(--bg-card);
   border-radius: 16px;
   padding: 2rem 2rem 2rem 2.5rem;
   overflow: hidden;
-  /* Reveal animation initial state — set by JS */
 }
 
-/* Animated left border — refined timing */
+/* Animated left border gradient */
 .testi-card::before {
   content: '';
   position: absolute;
@@ -881,8 +994,10 @@ input, textarea {
 /* Star cascade animation */
 .testi-star {
   display: inline-block;
-  transform: scale(0);
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform: scale(0.3);
+  opacity: 0.4;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+              opacity 0.4s ease;
 }
 
 .testi-star.star-filled {
@@ -895,6 +1010,14 @@ input, textarea {
 
 .testi-star.pop {
   transform: scale(1);
+  opacity: 1;
+}
+
+/* Testimonial card hover — only after revealed */
+.testi-card.revealed:hover {
+  background: var(--bg-card-alt);
+  transform: translateY(-2px);
+  transition: background 0.3s ease, transform 0.3s ease;
 }
 
 .testi-client {
@@ -902,14 +1025,11 @@ input, textarea {
   color: var(--text-secondary);
 }
 
-/* ---------- CONTACT SECTION ---------- */
+/* ==========================================================
+   CONTACT SECTION
+   ========================================================== */
 #contact {
-  padding: 6rem 2rem;
-}
-
-.contact-container {
-  max-width: 1100px;
-  margin: 0 auto;
+  padding: var(--section-padding-y) var(--section-padding-x);
 }
 
 /* Social handles row */
@@ -948,7 +1068,7 @@ input, textarea {
 }
 
 /* Hover — bounce + glow */
-.social-link:hover {
+.social-link:not(.coming-soon):hover {
   color: var(--accent-orange);
   border-color: var(--accent-orange);
   box-shadow: 0 0 20px rgba(255, 107, 0, 0.1);
@@ -1056,22 +1176,23 @@ input, textarea {
 /* Left panel */
 .contact-left {
   width: 40%;
-  padding: 3rem;
+  padding: 3rem 2.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: flex-start;
   background: rgba(255, 255, 255, 0.02);
   border-right: 1px solid rgba(255, 255, 255, 0.04);
 }
 
-.contact-left h2 {
+.contact-left h3 {
   font-size: clamp(2rem, 3vw, 2.8rem);
   font-weight: 700;
   color: var(--text-primary);
   line-height: 1.3;
 }
 
-.contact-left h2 span {
+.contact-left h3 span {
   color: var(--accent-blue);
 }
 
@@ -1085,21 +1206,21 @@ input, textarea {
 /* Right panel — form */
 .contact-right {
   width: 60%;
-  padding: 3rem;
+  padding: 3rem 3rem 2.5rem;
 }
 
 .form-group {
   position: relative;
-  padding-top: 1.5rem;
+  padding-top: 1.8rem;
   margin-bottom: 1.5rem;
 }
 
 .form-group input,
 .form-group textarea {
   width: 100%;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.04);
   border: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
   color: var(--text-primary);
   padding: 0.85rem;
   font-size: 0.95rem;
@@ -1113,14 +1234,10 @@ input, textarea {
   height: 96px;
 }
 
+/* Liquid Focus shimmer (merged — single block) */
 .form-group input:focus,
 .form-group textarea:focus {
   background: rgba(255, 255, 255, 0.05);
-}
-
-/* Liquid Focus shimmer */
-.form-group input:focus,
-.form-group textarea:focus {
   background-image: linear-gradient(
     110deg,
     transparent 0%,
@@ -1143,19 +1260,24 @@ input, textarea {
 .form-group label {
   position: absolute;
   left: 0.85rem;
-  top: 2.3rem;
-  color: var(--text-secondary);
-  font-size: 0.9rem;
+  top: 2.5rem;
+  color: #E0E0E0;
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
   pointer-events: none;
-  transition: all 0.2s ease;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.05);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .form-group input:focus ~ label,
 .form-group input:not(:placeholder-shown) ~ label,
 .form-group textarea:focus ~ label,
 .form-group textarea:not(:placeholder-shown) ~ label {
-  top: 0;
-  font-size: 0.75rem;
+  top: 0.1rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
   color: var(--accent-blue);
 }
 
@@ -1243,17 +1365,18 @@ input, textarea {
   transform: scale(1.1);
 }
 
-/* ---------- FOOTER ---------- */
+/* ==========================================================
+   FOOTER
+   ========================================================== */
 #footer {
   text-align: center;
   padding: 2rem;
   font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.35);
   position: relative;
   z-index: 1;
 }
 
-/* Footer materialize animation */
 #footer.reveal-ready {
   opacity: 0;
   letter-spacing: 3px;
@@ -1265,7 +1388,9 @@ input, textarea {
   letter-spacing: normal;
 }
 
-/* ---------- REDUCED MOTION ---------- */
+/* ==========================================================
+   REDUCED MOTION
+   ========================================================== */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -1275,7 +1400,9 @@ input, textarea {
   }
 }
 
-/* ---------- MOBILE BREAKPOINTS ---------- */
+/* ==========================================================
+   RESPONSIVE — TABLET (max-width: 900px)
+   ========================================================== */
 @media (max-width: 900px) {
   /* Navbar */
   #navbar .nav-links {
@@ -1286,45 +1413,59 @@ input, textarea {
     display: flex;
   }
 
-  /* Home */
-  .home-sub {
-    flex-direction: column;
-    justify-content: center;
-    gap: 2rem;
-    padding: 4rem 5%;
+  /* Welcome */
+  #home {
+    min-height: 70vh;
+    padding-top: 70px;
   }
 
-  .home-text-card,
-  .home-photo-card {
-    width: 90%;
-    height: auto;
+  .welcome-card-content {
+    padding: 2rem;
+  }
+
+  /* About section cards — stack vertically */
+  .about-row {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 0 5%;
+    margin-bottom: 3rem;
+  }
+
+  .about-text-card,
+  .about-media-card {
     min-height: 350px;
   }
 
-  /* Force photo/logo card on top in both sections */
-  #section-a .home-photo-card { order: -1; }
-  #section-b .home-photo-card { order: -1; }
+  /* Force media card on top in both rows */
+  .about-row .about-media-card {
+    order: -1;
+  }
 
   /* Slide-in from Y instead of X on mobile */
-  .home-text-card.reveal-ready,
-  .reverse-mobile .home-text-card.reveal-ready {
+  .about-text-card.reveal-ready,
+  .about-row-reverse .about-text-card.reveal-ready,
+  #about-row-a .about-text-card.reveal-ready,
+  #about-row-b .about-text-card.reveal-ready {
     transform: translateY(40px) translateX(0);
   }
-  .home-photo-card.reveal-ready,
-  .reverse-mobile .home-photo-card.reveal-ready {
+
+  .about-media-card.reveal-ready,
+  .about-row-reverse .about-media-card.reveal-ready,
+  #about-row-a .about-media-card.reveal-ready,
+  #about-row-b .about-media-card.reveal-ready {
     transform: translateY(-40px) translateX(0);
   }
 
-  /* Portfolio — larger focused item on mobile */
+  /* Portfolio carousel — fewer visible items */
   .carousel-item {
     width: calc((100% - 80px) / 5);
   }
 
   .carousel-item.focused {
-    transform: scale(1.25);
+    transform: scale(1.2);
   }
 
-  /* Testimonials */
+  /* Testimonials — single column */
   .testimonials-grid {
     grid-template-columns: 1fr;
   }
@@ -1333,7 +1474,7 @@ input, textarea {
     max-width: none;
   }
 
-  /* Contact */
+  /* Contact — stack */
   .contact-card-inner {
     flex-direction: column;
   }
@@ -1354,7 +1495,7 @@ input, textarea {
     flex-direction: column;
   }
 
-  /* Social handles — responsive grid */
+  /* Social handles responsive grid */
   .social-handles {
     display: grid;
     grid-template-columns: repeat(3, auto);
@@ -1368,28 +1509,42 @@ input, textarea {
   }
 }
 
+/* ==========================================================
+   RESPONSIVE — SMALL MOBILE (max-width: 600px)
+   ========================================================== */
 @media (max-width: 600px) {
-  /* Even larger focused item on small mobile */
   .carousel-item {
     width: calc((100% - 40px) / 3);
   }
 
   .carousel-item.focused {
-    transform: scale(1.35);
+    transform: scale(1.3);
   }
 
   .social-handles {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, auto);
+    justify-content: center;
+  }
+
+  .welcome-title {
+    white-space: normal;
   }
 }
 
+/* ==========================================================
+   RESPONSIVE — EXTRA SMALL (max-width: 480px)
+   ========================================================== */
 @media (max-width: 480px) {
-  .home-text-card,
-  .home-photo-card {
-    width: 95%;
+  .about-text-card,
+  .about-media-card {
+    min-height: 300px;
   }
 
   .text-card-inner {
     padding: 24px;
+  }
+
+  .about-row {
+    padding: 0 3%;
   }
 }
