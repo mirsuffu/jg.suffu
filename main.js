@@ -286,14 +286,24 @@ document.addEventListener('DOMContentLoaded', () => {
     if (typewriterAStarted || !twA) return;
     typewriterAStarted = true;
     const textA = twA.getAttribute('data-text');
-    typewrite(twA, textA, 22);
+    if (window.innerWidth <= 900) {
+      twA.innerHTML = textA;
+      twA.classList.add('mobile-text-reveal');
+    } else {
+      typewrite(twA, textA, 22);
+    }
   }
 
   function triggerTypewriterB() {
     if (typewriterBStarted || !twB) return;
     typewriterBStarted = true;
     const textB = twB.getAttribute('data-text');
-    typewrite(twB, textB, 22);
+    if (window.innerWidth <= 900) {
+      twB.innerHTML = textB;
+      twB.classList.add('mobile-text-reveal');
+    } else {
+      typewrite(twB, textB, 22);
+    }
   }
 
 
@@ -314,11 +324,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
           // Typewriter triggers — wait for slide-in transition to finish
           if (el.closest('#about-row-a') && el.classList.contains('about-text-card')) {
-            // Delay typewriter until card's slide-in animation completes (800ms)
-            setTimeout(triggerTypewriterA, 850);
+            setTimeout(triggerTypewriterA, window.innerWidth <= 900 ? 500 : 850);
           }
           if (el.closest('#about-row-b') && el.classList.contains('about-text-card')) {
-            setTimeout(triggerTypewriterB, 850);
+            setTimeout(triggerTypewriterB, window.innerWidth <= 900 ? 500 : 850);
           }
 
           // Testimonial star cascade — wait for card reveal to finish
