@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JG. SUFFU — Book Designer &amp; CA Student | Portfolio</title>
+    <meta name="description" content="Portfolio of Mir Sufiyan Ali — book designer, CA student, and creative professional. Explore my work in book design, typography, and layout.">
+
+    <!-- Favicon -->
+    <link rel="icon" href="logo.png" type="image/png">
+
+    <!-- Google Fonts: Urbanist + DM Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Urbanist:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+    <!-- ========== THREE.JS BACKGROUND CONTAINER ========== -->
+    <div id="bg-canvas-container"></div>
+
+    <!-- ========== NAVBAR ========== -->
+    <nav id="navbar">
+        <a href="#home" class="nav-logo">
+            <img src="logo.png" alt="JG. SUFFU Logo">
+        </a>
+        <ul class="nav-links">
+            <li><a href="#home" data-section="home" class="active">Home</a></li>
+            <li><a href="#portfolio" data-section="portfolio">Portfolio</a></li>
+            <li><a href="#testimonials" data-section="testimonials">Testimonials</a></li>
+            <li><a href="#contact" data-section="contact">Contact</a></li>
+        </ul>
+        <button id="hamburger" aria-label="Open menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- Mobile Drawer -->
+    <div id="drawer-overlay"></div>
+    <div id="mobile-drawer">
+        <a href="#home" data-section="home" class="active">Home</a>
+        <a href="#portfolio" data-section="portfolio">Portfolio</a>
+        <a href="#testimonials" data-section="testimonials">Testimonials</a>
+        <a href="#contact" data-section="contact">Contact</a>
+    </div>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main id="main-content">
+
+        <!-- ====== WELCOME SECTION ====== -->
+        <section id="welcome" class="section">
+            <div class="gradient-card welcome-card" id="welcome-card">
+                <div class="gradient-card-content welcome-card-content">
+                    <h1 class="welcome-heading">
+                        <span class="welcome-title" id="welcome-title">Welcome to the world of <span class="accent-orange">Suffu</span></span>
+                        <span class="welcome-subtitle">A Place where Passion &amp; Creativity Shake Hands</span>
+                    </h1>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====== HOME SECTION ====== -->
+        <section id="home" class="section">
+            <div class="home-spacer"></div>
+
+            <!-- Subsection A: Text (left) + Logo (right) -->
+            <div class="home-sub" id="section-a">
+                <div class="home-text-card gradient-card">
+                    <div class="gradient-card-content text-card-inner">
+                        <h2>The Brand</h2>
+                        <p class="typewriter-text" id="typewriter-a" data-text="Born from a passion for pages and a respect for precision. I craft books that don't just carry words — they carry weight. Finance. Commerce. Accounting — this is my domain, and I know it well. If you need work that's structured in thought and polished in finish, you've landed in the right place. Because here, every page is built with purpose. Let's create something worth owning. &#9632;"></p>
+                    </div>
+                </div>
+                <div class="home-photo-card gradient-card">
+                    <div class="gradient-card-content" style="display:flex;align-items:center;justify-content:center;">
+                        <img src="logo.png" alt="JG. SUFFU Logo" class="logo-breathe" style="width: 100%; height: 100%; object-fit: contain; padding: 30px;">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subsection B: Image (left) + Text (right) -->
+            <div class="home-sub reverse-mobile" id="section-b">
+                <div class="home-photo-card gradient-card">
+                    <div class="gradient-card-content" style="padding:0;overflow:hidden;">
+                        <img src="my_image.png" alt="Mir Sufiyan Ali" class="ken-burns" style="width:100%;height:100%;object-fit:cover;object-position:top;">
+                    </div>
+                </div>
+                <div class="home-text-card gradient-card">
+                    <div class="gradient-card-content text-card-inner">
+                        <h2>The Visionary</h2>
+                        <p class="typewriter-text" id="typewriter-b" data-text="Hi, I'm Mir Sufiyan — most people just call me &quot;Suffu&quot; with love. CA student by discipline, book developer by passion, and apparently quite good at both. This work is my playground — where structured thinking meets creative instinct. If you're here, you probably need someone who gets the content and makes it look exceptional. That's exactly me. Let's build something worth reading. &#9632;"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="home-spacer"></div>
+        </section>
+
+
+
+        <!-- ====== PORTFOLIO SECTION ====== -->
+        <section id="portfolio" class="section">
+            <h2 class="section-title">My <span class="accent-orange">Work</span></h2>
+
+            <div class="carousel-wrapper" id="carousel-wrapper">
+                <div class="carousel-track" id="carousel-track">
+                    <!-- Images will be populated by JS -->
+                </div>
+                <button class="carousel-nav prev" id="carousel-prev" aria-label="Previous image">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+                <button class="carousel-nav next" id="carousel-next" aria-label="Next image">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
+            </div>
+        </section>
+
+        <!-- ====== TESTIMONIALS SECTION ====== -->
+        <section id="testimonials" class="section">
+            <h2 class="section-title">Client <span class="accent-blue">Words</span></h2>
+            <div class="testimonials-grid" id="testimonials-grid">
+                <!-- Testimonial cards populated by JS -->
+            </div>
+        </section>
+
+        <!-- ====== CONTACT SECTION ====== -->
+        <section id="contact" class="section">
+            <h2 class="section-title">Let's <span class="accent-orange">Connect</span></h2>
+
+            <!-- Social Handles -->
+            <div class="social-handles">
+                <a href="https://wa.me/919422872892" target="_blank" rel="noopener" class="social-link" id="social-whatsapp">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+                    WhatsApp
+                </a>
+                <a href="mailto:mirsuffu@gmail.com" class="social-link" id="social-email">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                    mirsuffu@gmail.com
+                </a>
+                <a href="tel:+919422872892" class="social-link" id="social-call">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    9422872892
+                </a>
+                <a href="https://www.instagram.com/its_ca.suffu" target="_blank" rel="noopener" class="social-link" id="social-instagram">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                    its_ca.suffu
+                </a>
+                <a href="javascript:void(0)" class="social-link coming-soon" id="social-linkedin">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                    LinkedIn
+                </a>
+            </div>
+
+            <!-- Contact Form Card -->
+            <div class="contact-card">
+                <div class="contact-card-inner">
+                    <!-- Left panel -->
+                    <div class="contact-left">
+                        <h2>Let's<br><span>Connect</span></h2>
+                        <p>I'm just a few clicks away, eagerly waiting to see you there...!</p>
+                    </div>
+                    <!-- Right panel -->
+                    <div class="contact-right">
+                        <form id="contact-form">
+                            <div class="form-group">
+                                <input type="text" id="contact-name" placeholder=" " required>
+                                <label for="contact-name">Name</label>
+                                <div class="form-underline"></div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="contact-mobile" placeholder=" " required>
+                                <label for="contact-mobile">Mobile / Email</label>
+                                <div class="form-underline"></div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="contact-purpose" placeholder=" " required>
+                                <label for="contact-purpose">Purpose</label>
+                                <div class="form-underline"></div>
+                            </div>
+                            <div class="form-group">
+                                <textarea id="contact-note" placeholder=" "></textarea>
+                                <label for="contact-note">Note</label>
+                                <div class="form-underline"></div>
+                            </div>
+                            <div class="contact-buttons">
+                                <button type="button" class="btn-send btn-email" id="btn-send-email">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+                                    Send via Email
+                                </button>
+                                <button type="button" class="btn-send btn-whatsapp" id="btn-send-whatsapp">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+                                    Send via WhatsApp
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ========== FOOTER ========== -->
+    <footer id="footer">
+        &copy; <span id="footer-year"></span> JG. SUFFU &mdash; Crafted with passion.
+    </footer>
+
+    <!-- ========== LIGHTBOX ========== -->
+    <div id="lightbox">
+        <button id="lightbox-close" aria-label="Close lightbox">&times;</button>
+        <img id="lightbox-img" src="" alt="Portfolio preview">
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
