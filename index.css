@@ -298,6 +298,25 @@ input, textarea {
   z-index: 1;
 }
 
+.section:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  width: 80%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-orange), var(--accent-blue), transparent);
+  background-size: 200% 100%;
+  opacity: 0.3;
+  animation: dividerShimmer 3s linear infinite;
+  border-radius: 2px;
+}
+
+@keyframes dividerShimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
 .section-title {
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 800;
@@ -1411,6 +1430,20 @@ input, textarea {
 
   #hamburger {
     display: flex;
+  }
+
+  /* Mobile text fading (skips typewriter) */
+  .typewriter-text {
+    opacity: 0; 
+  }
+
+  .mobile-text-reveal {
+    animation: txtFadeInLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes txtFadeInLeft {
+    0% { opacity: 0; transform: translateX(-30px); }
+    100% { opacity: 1; transform: translateX(0); }
   }
 
   /* Section Title Spacing */
