@@ -1413,10 +1413,21 @@ input, textarea {
     display: flex;
   }
 
-  /* Welcome */
+  /* Section Title Spacing */
+  .section-title {
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  #home, #about, #portfolio, #testimonials, #contact {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
   #home {
-    min-height: 70vh;
-    padding-top: 70px;
+    padding-top: 80px;
   }
 
   .welcome-card-content {
@@ -1426,9 +1437,9 @@ input, textarea {
   /* About section cards — stack vertically */
   .about-row {
     grid-template-columns: 1fr;
-    gap: 2rem;
-    padding: 0 5%;
-    margin-bottom: 3rem;
+    gap: 3rem;
+    padding: 0 1.5rem;
+    margin-bottom: 5rem;
   }
 
   .about-text-card,
@@ -1443,17 +1454,14 @@ input, textarea {
 
   /* Slide-in from Y instead of X on mobile */
   .about-text-card.reveal-ready,
-  .about-row-reverse .about-text-card.reveal-ready,
-  #about-row-a .about-text-card.reveal-ready,
-  #about-row-b .about-text-card.reveal-ready {
-    transform: translateY(40px) translateX(0);
-  }
-
   .about-media-card.reveal-ready,
+  .about-row-reverse .about-text-card.reveal-ready,
   .about-row-reverse .about-media-card.reveal-ready,
+  #about-row-a .about-text-card.reveal-ready,
   #about-row-a .about-media-card.reveal-ready,
+  #about-row-b .about-text-card.reveal-ready,
   #about-row-b .about-media-card.reveal-ready {
-    transform: translateY(-40px) translateX(0);
+    transform: translateY(30px) translateX(0);
   }
 
   /* Portfolio carousel — fewer visible items */
