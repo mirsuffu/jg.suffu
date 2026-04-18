@@ -1,5 +1,5 @@
 /* ============================================================
-   JG. SUFFU Portfolio — main.js
+   JG. SUFFU Portfolio — main.js (Refactored)
    Vanilla JS · No libraries (except Three.js for background)
    ============================================================ */
 
@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   'use strict';
 
   // ──────────────────────────────────────────
-  // 1. THREE.JS HEXAGON BACKGROUND WITH RAYCASTER
+  // 1. THREE.JS HEXAGON BACKGROUND
   // ──────────────────────────────────────────
   const bgContainer = document.getElementById('bg-canvas-container');
   if (bgContainer && typeof THREE !== 'undefined') {
@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let baseLift = hex.userData.baseY + (wave1 + wave2) * 1.5 + breath;
 
-        // Cursor Interaction — refined (larger radius, softer lift)
+        // Cursor interaction
         if (intersectionPoint) {
           const dx = hex.position.x - intersectionPoint.x;
           const dz = hex.position.z - intersectionPoint.z;
@@ -146,12 +146,12 @@ document.addEventListener('DOMContentLoaded', () => {
           const influenceRadius = 20;
           if (distance < influenceRadius) {
             const factor = 1 - (distance / influenceRadius);
-            const lift = factor * factor * 8; // Quadratic falloff, max 8 units
+            const lift = factor * factor * 8;
             baseLift += lift;
           }
         }
 
-        // Smoother interpolation
+        // Smooth interpolation
         const targetY = baseLift;
         hex.position.y += (targetY - hex.position.y) * 0.06;
       });
@@ -185,11 +185,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const welcomeTitle = document.getElementById('welcome-title');
     if (welcomeTitle) {
       const originalHTML = welcomeTitle.innerHTML;
-      // Wrap each character (outside of HTML tags) in a span
       let charIndex = 0;
       const wrappedHTML = originalHTML.replace(/(<[^>]+>)|(.)/g, (match, tag, char) => {
-        if (tag) return tag; // Keep HTML tags as-is
-        if (char === ' ') return ' '; // Do NOT wrap spaces in spans (prevents collapsing)
+        if (tag) return tag;
+        if (char === ' ') return ' ';
         charIndex++;
         return `<span class="welcome-char" style="transition-delay: ${charIndex * 15}ms">${char}</span>`;
       });
@@ -198,7 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Trigger character reveals after a short delay
       setTimeout(() => {
         welcomeTitle.querySelectorAll('.welcome-char').forEach(ch => ch.classList.add('visible'));
-      }, 200);
+      }, 600);
     }
 
     // Trigger the card breathe animation
@@ -213,7 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ──────────────────────────────────────────
   const navLinks = document.querySelectorAll('#navbar .nav-links a');
   const drawerLinks = document.querySelectorAll('#mobile-drawer a');
-  const sections = document.querySelectorAll('.section[id]:not(#welcome)');
+  const sections = document.querySelectorAll('.section[id]');
   const hamburger = document.getElementById('hamburger');
   const mobileDrawer = document.getElementById('mobile-drawer');
   const drawerOverlay = document.getElementById('drawer-overlay');
@@ -229,7 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setActiveNav(entry.target.id);
       }
     });
-  }, { rootMargin: '-40% 0px -60% 0px' });
+  }, { rootMargin: '-30% 0px -70% 0px' });
 
   sections.forEach(s => sectionObserver.observe(s));
 
@@ -248,62 +247,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // ──────────────────────────────────────────
-  // 4. TYPEWRITER EFFECT — Scroll-triggered, natural speed
+  // 4. TEXT REVEAL — Fade-in from left
   // ──────────────────────────────────────────
-  function typewrite(el, text, baseSpeed = 22) {
-    let i = 0;
-    el.innerHTML = '';
-    const cursor = document.createElement('span');
-    cursor.className = 'typewriter-cursor';
-    el.appendChild(cursor);
-
-    function type() {
-      if (i < text.length) {
-        const char = text.charAt(i);
-        const charNode = document.createTextNode(char);
-        el.insertBefore(charNode, cursor);
-        i++;
-
-        // Natural speed variation: pause longer after punctuation
-        let delay = baseSpeed + Math.random() * 15;
-        if (char === '.' || char === '—') delay += Math.random() * 80 + 60;
-        else if (char === ',') delay += Math.random() * 40 + 30;
-
-        setTimeout(type, delay);
-      } else {
-        // Keep cursor blinking for 2s then remove
-        setTimeout(() => cursor.remove(), 2000);
-      }
-    }
-    type();
-  }
-
-  // Scroll-triggered typewriter — only starts when Home section is visible
-  let typewriterAStarted = false;
-  let typewriterBStarted = false;
+  let textARevealed = false;
+  let textBRevealed = false;
   const twA = document.getElementById('typewriter-a');
   const twB = document.getElementById('typewriter-b');
 
-  function triggerTypewriterA() {
-    if (typewriterAStarted || !twA) return;
-    typewriterAStarted = true;
-    const textA = twA.getAttribute('data-text');
-    typewrite(twA, textA, 22);
+  function triggerTextRevealA() {
+    if (textARevealed || !twA) return;
+    textARevealed = true;
+    twA.textContent = twA.getAttribute('data-text');
+    twA.classList.add('text-fade-reveal');
   }
 
-  function triggerTypewriterB() {
-    if (typewriterBStarted || !twB) return;
-    typewriterBStarted = true;
-    const textB = twB.getAttribute('data-text');
-    typewrite(twB, textB, 22);
+  function triggerTextRevealB() {
+    if (textBRevealed || !twB) return;
+    textBRevealed = true;
+    twB.textContent = twB.getAttribute('data-text');
+    twB.classList.add('text-fade-reveal');
   }
 
 
   // ──────────────────────────────────────────
   // 5. UNIFIED SCROLL REVEAL MANAGER
   // ──────────────────────────────────────────
-  // This handles all scroll-triggered animations with element-specific behavior.
-
   function setupScrollReveal() {
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -316,43 +284,41 @@ document.addEventListener('DOMContentLoaded', () => {
             el.classList.add('border-active');
           }
 
-          // Typewriter triggers
-          if (el.closest('#section-a')) {
-            triggerTypewriterA();
+          // Text reveal triggers — wait for slide-in transition to finish
+          if (el.closest('#about-row-a') && el.classList.contains('about-text-card')) {
+            setTimeout(triggerTextRevealA, 500);
           }
-          if (el.closest('#section-b')) {
-            triggerTypewriterB();
+          if (el.closest('#about-row-b') && el.classList.contains('about-text-card')) {
+            setTimeout(triggerTextRevealB, 500);
           }
 
-          // Testimonial star cascade
+          // Testimonial star cascade — wait for card reveal to finish
           if (el.classList.contains('testi-card')) {
             const stars = el.querySelectorAll('.testi-star');
             stars.forEach((star, i) => {
-              setTimeout(() => star.classList.add('pop'), i * 100);
+              // 600ms for card reveal + stagger per star
+              setTimeout(() => star.classList.add('pop'), 650 + i * 100);
             });
           }
 
-          // Social link stagger — delay is set via CSS transition-delay
-          // (handled by the stagger style applied during setup)
-
-          revealObserver.unobserve(el); // Once revealed, no need to track
+          revealObserver.unobserve(el);
         }
       });
-    }, { threshold: 0.15 });
+    }, { threshold: 0.08 });
 
-    // Section titles
+    // Section titles — low threshold to ensure they always trigger
     document.querySelectorAll('.section-title').forEach(el => {
       el.classList.add('reveal-ready');
       revealObserver.observe(el);
     });
 
-    // Home cards — parallax slide-in
-    document.querySelectorAll('.home-text-card, .home-photo-card').forEach(el => {
+    // About cards — parallax slide-in
+    document.querySelectorAll('.about-text-card, .about-media-card').forEach(el => {
       el.classList.add('reveal-ready');
       revealObserver.observe(el);
     });
 
-    // Gradient cards — activate border spin only when visible
+    // Gradient cards — activate border spin when visible
     document.querySelectorAll('.gradient-card').forEach(el => {
       revealObserver.observe(el);
     });
@@ -360,7 +326,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Social links — domino wave with stagger
     document.querySelectorAll('.social-link').forEach((el, i) => {
       el.classList.add('reveal-ready');
-      el.style.transitionDelay = `${i * 80}ms`;
+      el.style.transitionDelay = `${i * 120}ms`;
       revealObserver.observe(el);
     });
 
@@ -383,7 +349,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const mainRevealObserver = setupScrollReveal();
 
-  // Function to observe dynamically added elements (testimonial cards)
+  // Helper for dynamically added elements
   function observeNewElement(el, cssClass) {
     if (cssClass) el.classList.add(cssClass);
     mainRevealObserver.observe(el);
@@ -399,6 +365,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const nextBtn = document.getElementById('carousel-next');
   const TOTAL_IMAGES = 29;
   let currentIndex = 3;
+  let userInteracted = false;
 
   // Populate carousel
   for (let i = 1; i <= TOTAL_IMAGES; i++) {
@@ -410,7 +377,7 @@ document.addEventListener('DOMContentLoaded', () => {
     img.alt = `Portfolio piece ${i}`;
     img.loading = 'lazy';
     item.appendChild(img);
-    item.addEventListener('click', () => openLightbox(img.src));
+    item.addEventListener('click', () => openLightbox(i - 1));
     carouselTrack.appendChild(item);
   }
 
@@ -438,12 +405,19 @@ document.addEventListener('DOMContentLoaded', () => {
     slideCarousel();
   }
 
-  prevBtn.addEventListener('click', () => goToSlide(currentIndex - 1));
-  nextBtn.addEventListener('click', () => goToSlide(currentIndex + 1));
+  prevBtn.addEventListener('click', () => {
+    userInteracted = true;
+    goToSlide(currentIndex - 1);
+  });
+  nextBtn.addEventListener('click', () => {
+    userInteracted = true;
+    goToSlide(currentIndex + 1);
+  });
 
   // Mouse wheel navigation
   carouselWrapper.addEventListener('wheel', (e) => {
     e.preventDefault();
+    userInteracted = true;
     if (e.deltaY > 0) goToSlide(currentIndex + 1);
     else goToSlide(currentIndex - 1);
   }, { passive: false });
@@ -457,12 +431,13 @@ document.addEventListener('DOMContentLoaded', () => {
   carouselWrapper.addEventListener('touchend', (e) => {
     const delta = carouselTouchStartX - e.changedTouches[0].clientX;
     if (Math.abs(delta) > 40) {
+      userInteracted = true;
       if (delta > 0) goToSlide(currentIndex + 1);
       else goToSlide(currentIndex - 1);
     }
   }, { passive: true });
 
-  // Auto-animation — only when carousel is visible
+  // Auto-animation — only when carousel is visible AND user hasn't interacted
   let autoAnimated = false;
   const carouselAutoObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -476,13 +451,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function autoAnimateCarousel() {
     const timeline = [
-      { target: 4, delay: 400 },
-      { target: 2, delay: 1200 },
-      { target: 5, delay: 2000 },
-      { target: 3, delay: 2800 },
+      { target: 4, delay: 800 },
+      { target: 2, delay: 1800 },
+      { target: 5, delay: 2800 },
+      { target: 3, delay: 3800 },
     ];
     timeline.forEach(({ target, delay }) => {
-      setTimeout(() => goToSlide(target), delay);
+      setTimeout(() => {
+        if (!userInteracted) goToSlide(target);
+      }, delay);
     });
   }
 
@@ -499,18 +476,59 @@ document.addEventListener('DOMContentLoaded', () => {
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightbox-img');
   const lightboxClose = document.getElementById('lightbox-close');
-  let lightboxScale = 1;
-  let lightboxInitDist = 0;
-  let lightboxBaseScale = 1; // For cumulative pinch-to-zoom
+  const lightboxPrevBtn = document.getElementById('lightbox-prev');
+  const lightboxNextBtn = document.getElementById('lightbox-next');
+  let lightboxCurrentIndex = 0;
 
-  function openLightbox(src) {
-    lightboxImg.src = src;
-    lightboxScale = 1;
-    lightboxBaseScale = 1;
-    lightboxImg.style.transform = `scale(1)`;
+  let lightboxScale = 1;
+  let offsetX = 0;
+  let offsetY = 0;
+  let isDragging = false;
+  let dragStartX = 0;
+  let dragStartY = 0;
+
+  function openLightbox(index) {
+    lightboxCurrentIndex = index;
+    updateLightboxImg();
+    resetLightboxTransform();
     lightbox.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
+
+  function updateLightboxImg() {
+    lightboxImg.classList.add('no-transition');
+    lightboxImg.src = `image_${lightboxCurrentIndex + 1}.png`;
+    // Force reflow and remove after a tiny delay
+    setTimeout(() => {
+      lightboxImg.classList.remove('no-transition');
+    }, 20);
+  }
+
+  function resetLightboxTransform() {
+    lightboxScale = 1;
+    offsetX = 0;
+    offsetY = 0;
+    updateLightboxTransform();
+  }
+
+  function updateLightboxTransform() {
+    lightboxImg.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${lightboxScale})`;
+  }
+
+  function nextLightbox() {
+    lightboxCurrentIndex = (lightboxCurrentIndex + 1) % TOTAL_IMAGES;
+    updateLightboxImg();
+    resetLightboxTransform();
+  }
+
+  function prevLightbox() {
+    lightboxCurrentIndex = (lightboxCurrentIndex - 1 + TOTAL_IMAGES) % TOTAL_IMAGES;
+    updateLightboxImg();
+    resetLightboxTransform();
+  }
+
+  if (lightboxPrevBtn) lightboxPrevBtn.addEventListener('click', prevLightbox);
+  if (lightboxNextBtn) lightboxNextBtn.addEventListener('click', nextLightbox);
 
   function closeLightbox() {
     lightbox.classList.remove('open');
@@ -522,22 +540,70 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.target === lightbox) closeLightbox();
   });
 
-  // Scroll wheel zoom (desktop)
+  // Desktop mouse dragging to pan
+  lightboxImg.addEventListener('mousedown', (e) => {
+    e.preventDefault(); // Prevents native image dragging ghost
+    isDragging = true;
+    dragStartX = e.clientX - offsetX;
+    dragStartY = e.clientY - offsetY;
+    lightboxImg.classList.add('cursor-grabbing');
+    lightboxImg.classList.add('no-transition');
+  });
+
+  window.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    offsetX = e.clientX - dragStartX;
+    offsetY = e.clientY - dragStartY;
+    updateLightboxTransform();
+  });
+
+  window.addEventListener('mouseup', () => {
+    isDragging = false;
+    lightboxImg.classList.remove('cursor-grabbing');
+    lightboxImg.classList.remove('no-transition');
+  });
+
+  // Scroll wheel zoom to cursor (desktop)
   lightbox.addEventListener('wheel', (e) => {
     e.preventDefault();
-    if (e.deltaY < 0) lightboxScale = Math.min(lightboxScale + 0.15, 5);
-    else lightboxScale = Math.max(lightboxScale - 0.15, 0.5);
-    lightboxImg.style.transform = `scale(${lightboxScale})`;
+    if (e.target !== lightboxImg && e.target !== lightbox) return;
+    
+    const oldScale = lightboxScale;
+    if (e.deltaY < 0) {
+      lightboxScale = Math.min(lightboxScale + 0.25, 5);
+    } else {
+      lightboxScale = Math.max(lightboxScale - 0.25, 0.5);
+    }
+
+    const rect = lightbox.getBoundingClientRect();
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const mouseX = e.clientX - centerX;
+    const mouseY = e.clientY - centerY;
+
+    const ratio = lightboxScale / oldScale;
+    offsetX = mouseX - (mouseX - offsetX) * ratio;
+    offsetY = mouseY - (mouseY - offsetY) * ratio;
+
+    updateLightboxTransform();
   }, { passive: false });
 
-  // Pinch-to-zoom (mobile) — fixed cumulative scaling
+  // Pinch-to-zoom (mobile)
+  let lightboxInitDist = 0;
+  let lightboxBaseScale = 1;
+
   lightboxImg.addEventListener('touchstart', (e) => {
+    lightboxImg.classList.add('no-transition');
     if (e.touches.length === 2) {
       lightboxInitDist = Math.hypot(
         e.touches[0].clientX - e.touches[1].clientX,
         e.touches[0].clientY - e.touches[1].clientY
       );
-      lightboxBaseScale = lightboxScale; // Capture current scale as base
+      lightboxBaseScale = lightboxScale;
+    } else if (e.touches.length === 1) {
+      isDragging = true;
+      dragStartX = e.touches[0].clientX - offsetX;
+      dragStartY = e.touches[0].clientY - offsetY;
     }
   }, { passive: true });
 
@@ -549,27 +615,56 @@ document.addEventListener('DOMContentLoaded', () => {
         e.touches[0].clientY - e.touches[1].clientY
       );
       const scaleDelta = currentDist / lightboxInitDist;
+      
+      const oldScale = lightboxScale;
       lightboxScale = Math.max(0.5, Math.min(5, lightboxBaseScale * scaleDelta));
-      lightboxImg.style.transform = `scale(${lightboxScale})`;
+      
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+      const touchCenterX = (e.touches[0].clientX + e.touches[1].clientX) / 2 - centerX;
+      const touchCenterY = (e.touches[0].clientY + e.touches[1].clientY) / 2 - centerY;
+      
+      const ratio = lightboxScale / oldScale;
+      offsetX = touchCenterX - (touchCenterX - offsetX) * ratio;
+      offsetY = touchCenterY - (touchCenterY - offsetY) * ratio;
+
+      updateLightboxTransform();
+    } else if (e.touches.length === 1 && isDragging) {
+      e.preventDefault();
+      offsetX = e.touches[0].clientX - dragStartX;
+      offsetY = e.touches[0].clientY - dragStartY;
+      updateLightboxTransform();
     }
   }, { passive: false });
 
-  // Keyboard support
+  lightboxImg.addEventListener('touchend', () => {
+    isDragging = false;
+    lightboxImg.classList.remove('no-transition');
+  });
+
+  // Keyboard support for Lightbox (and Carousel when closed)
   document.addEventListener('keydown', (e) => {
-    // Escape closes lightbox
     if (e.key === 'Escape' && lightbox.classList.contains('open')) {
       closeLightbox();
     }
-    // Arrow keys navigate carousel (only when lightbox is closed)
-    if (!lightbox.classList.contains('open')) {
-      if (e.key === 'ArrowLeft') goToSlide(currentIndex - 1);
-      if (e.key === 'ArrowRight') goToSlide(currentIndex + 1);
+    if (lightbox.classList.contains('open')) {
+      if (e.key === 'ArrowLeft') prevLightbox();
+      if (e.key === 'ArrowRight') nextLightbox();
+    } else {
+      if (e.key === 'ArrowLeft') {
+        userInteracted = true;
+        goToSlide(currentIndex - 1);
+      }
+      if (e.key === 'ArrowRight') {
+        userInteracted = true;
+        goToSlide(currentIndex + 1);
+      }
     }
   });
 
 
   // ──────────────────────────────────────────
-  // 8. TESTIMONIALS — Dynamic load with scroll-reveal integration
+  // 8. TESTIMONIALS — Dynamic load with scroll-reveal
   // ──────────────────────────────────────────
   const testiGrid = document.getElementById('testimonials-grid');
   const TESTI_COUNT = 4;
@@ -609,7 +704,7 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
         testiGrid.appendChild(card);
 
-        // Register with scroll reveal manager (fixes timing bug)
+        // Register with scroll reveal
         observeNewElement(card, 'reveal-ready');
       } catch (e) {
         // silently skip
