@@ -6,6 +6,13 @@
     <title>JG. SUFFU — Book Designer &amp; CA Student | Portfolio</title>
     <meta name="description" content="Portfolio of Mir Sufiyan Ali — book designer, CA student, and creative professional. Explore my work in book design, typography, and layout.">
 
+    <!-- Open Graph & Twitter Meta Tags -->
+    <meta property="og:title" content="JG. SUFFU — Book Designer & CA Student | Portfolio">
+    <meta property="og:description" content="Portfolio of Mir Sufiyan Ali — book designer, CA student, and creative professional. Explore my work in book design, typography, and layout.">
+    <meta property="og:image" content="logo.png">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+
     <!-- Favicon -->
     <link rel="icon" href="logo.png" type="image/png">
 
@@ -28,6 +35,7 @@
         </a>
         <ul class="nav-links">
             <li><a href="#home" data-section="home" class="active">Home</a></li>
+            <li><a href="#about" data-section="about">About</a></li>
             <li><a href="#portfolio" data-section="portfolio">Portfolio</a></li>
             <li><a href="#testimonials" data-section="testimonials">Testimonials</a></li>
             <li><a href="#contact" data-section="contact">Contact</a></li>
@@ -43,6 +51,7 @@
     <div id="drawer-overlay"></div>
     <div id="mobile-drawer">
         <a href="#home" data-section="home" class="active">Home</a>
+        <a href="#about" data-section="about">About</a>
         <a href="#portfolio" data-section="portfolio">Portfolio</a>
         <a href="#testimonials" data-section="testimonials">Testimonials</a>
         <a href="#contact" data-section="contact">Contact</a>
@@ -51,8 +60,8 @@
     <!-- ========== MAIN CONTENT ========== -->
     <main id="main-content">
 
-        <!-- ====== WELCOME SECTION ====== -->
-        <section id="welcome" class="section">
+        <!-- ====== HOME / WELCOME SECTION ====== -->
+        <section id="home" class="section">
             <div class="gradient-card welcome-card" id="welcome-card">
                 <div class="gradient-card-content welcome-card-content">
                     <h1 class="welcome-heading">
@@ -63,52 +72,48 @@
             </div>
         </section>
 
-        <!-- ====== HOME SECTION ====== -->
-        <section id="home" class="section">
-            <div class="home-spacer"></div>
+        <!-- ====== ABOUT SECTION ====== -->
+        <section id="about" class="section">
+            <h2 class="section-title">The <span class="accent-orange">Hands</span> behind <span class="accent-blue">Magic</span></h2>
 
             <!-- Subsection A: Text (left) + Logo (right) -->
-            <div class="home-sub" id="section-a">
-                <div class="home-text-card gradient-card">
+            <div class="about-row" id="about-row-a">
+                <div class="about-text-card gradient-card">
                     <div class="gradient-card-content text-card-inner">
-                        <h2>The Brand</h2>
+                        <h3>The Brand</h3>
                         <p class="typewriter-text" id="typewriter-a" data-text="Born from a passion for pages and a respect for precision. I craft books that don't just carry words — they carry weight. Finance. Commerce. Accounting — this is my domain, and I know it well. If you need work that's structured in thought and polished in finish, you've landed in the right place. Because here, every page is built with purpose. Let's create something worth owning. &#9632;"></p>
                     </div>
                 </div>
-                <div class="home-photo-card gradient-card">
-                    <div class="gradient-card-content" style="display:flex;align-items:center;justify-content:center;">
-                        <img src="logo.png" alt="JG. SUFFU Logo" class="logo-breathe" style="width: 100%; height: 100%; object-fit: contain; padding: 30px;">
+                <div class="about-media-card gradient-card">
+                    <div class="gradient-card-content media-card-inner media-card-logo">
+                        <img src="logo.png" alt="JG. SUFFU Logo" class="logo-breathe">
                     </div>
                 </div>
             </div>
 
             <!-- Subsection B: Image (left) + Text (right) -->
-            <div class="home-sub reverse-mobile" id="section-b">
-                <div class="home-photo-card gradient-card">
-                    <div class="gradient-card-content" style="padding:0;overflow:hidden;">
-                        <img src="my_image.png" alt="Mir Sufiyan Ali" class="ken-burns" style="width:100%;height:100%;object-fit:cover;object-position:top;">
+            <div class="about-row about-row-reverse" id="about-row-b">
+                <div class="about-media-card gradient-card">
+                    <div class="gradient-card-content media-card-inner media-card-photo">
+                        <img src="my_image.png" alt="Mir Sufiyan Ali" class="ken-burns">
                     </div>
                 </div>
-                <div class="home-text-card gradient-card">
+                <div class="about-text-card gradient-card">
                     <div class="gradient-card-content text-card-inner">
-                        <h2>The Visionary</h2>
+                        <h3>The Visionary</h3>
                         <p class="typewriter-text" id="typewriter-b" data-text="Hi, I'm Mir Sufiyan — most people just call me &quot;Suffu&quot; with love. CA student by discipline, book developer by passion, and apparently quite good at both. This work is my playground — where structured thinking meets creative instinct. If you're here, you probably need someone who gets the content and makes it look exceptional. That's exactly me. Let's build something worth reading. &#9632;"></p>
                     </div>
                 </div>
             </div>
-
-            <div class="home-spacer"></div>
         </section>
-
-
 
         <!-- ====== PORTFOLIO SECTION ====== -->
         <section id="portfolio" class="section">
-            <h2 class="section-title">My <span class="accent-orange">Work</span></h2>
+            <h2 class="section-title">My <span class="accent-orange">Creativity</span></h2>
 
             <div class="carousel-wrapper" id="carousel-wrapper">
                 <div class="carousel-track" id="carousel-track">
-                    <!-- Images will be populated by JS -->
+                    <!-- Images populated by JS -->
                 </div>
                 <button class="carousel-nav prev" id="carousel-prev" aria-label="Previous image">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -125,7 +130,7 @@
 
         <!-- ====== TESTIMONIALS SECTION ====== -->
         <section id="testimonials" class="section">
-            <h2 class="section-title">Client <span class="accent-blue">Words</span></h2>
+            <h2 class="section-title"><span class="accent-orange">Golden</span> words of <span class="accent-blue">Clients</span></h2>
             <div class="testimonials-grid" id="testimonials-grid">
                 <!-- Testimonial cards populated by JS -->
             </div>
@@ -133,7 +138,7 @@
 
         <!-- ====== CONTACT SECTION ====== -->
         <section id="contact" class="section">
-            <h2 class="section-title">Let's <span class="accent-orange">Connect</span></h2>
+            <h2 class="section-title">Let's <span class="accent-orange">shake</span> <span class="accent-blue">hands</span></h2>
 
             <!-- Social Handles -->
             <div class="social-handles">
@@ -164,7 +169,7 @@
                 <div class="contact-card-inner">
                     <!-- Left panel -->
                     <div class="contact-left">
-                        <h2>Let's<br><span>Connect</span></h2>
+                        <h3>Let's<br><span>Connect</span></h3>
                         <p>I'm just a few clicks away, eagerly waiting to see you there...!</p>
                     </div>
                     <!-- Right panel -->
@@ -216,6 +221,16 @@
     <!-- ========== LIGHTBOX ========== -->
     <div id="lightbox">
         <button id="lightbox-close" aria-label="Close lightbox">&times;</button>
+        <button class="lightbox-nav prev" id="lightbox-prev" aria-label="Previous image">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+        </button>
+        <button class="lightbox-nav next" id="lightbox-next" aria-label="Next image">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+        </button>
         <img id="lightbox-img" src="" alt="Portfolio preview">
     </div>
 
