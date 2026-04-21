@@ -160,10 +160,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     animate();
 
+    let lastCanvasWidth = window.innerWidth;
     window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
+      if (window.innerWidth !== lastCanvasWidth) {
+        lastCanvasWidth = window.innerWidth;
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      }
     });
   }
 
@@ -463,7 +467,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  window.addEventListener('resize', slideCarousel);
+  let carouselLastWidth = window.innerWidth;
+  window.addEventListener('resize', () => {
+    if (window.innerWidth !== carouselLastWidth) {
+      carouselLastWidth = window.innerWidth;
+      slideCarousel();
+    }
+  });
 
   // Initialize carousel
   slideCarousel();
