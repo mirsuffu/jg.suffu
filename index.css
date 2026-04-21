@@ -127,6 +127,7 @@ input, textarea {
   left: 0;
   width: 100vw;
   height: 100vh;
+  height: 100lvh;
   z-index: 0;
   pointer-events: none;
 }
@@ -249,6 +250,7 @@ input, textarea {
   right: -100%;
   width: 280px;
   height: 100vh;
+  height: 100dvh;
   background: var(--bg-card);
   z-index: 1001;
   padding: 80px 2rem 2rem;
@@ -385,6 +387,7 @@ input, textarea {
    ========================================================== */
 #home {
   min-height: 85vh;
+  min-height: 85svh;
   display: flex;
   align-items: center;
   justify-content: center;
