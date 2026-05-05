@@ -410,18 +410,19 @@ input, textarea {
 }
 
 .welcome-title {
-  font-size: clamp(1.4rem, 5vw, 2.8rem);
+  font-size: clamp(1rem, 5vw, 2.8rem);
   display: block;
   white-space: nowrap;
 }
 
 .welcome-subtitle {
-  font-size: clamp(0.9rem, 2vw, 1.2rem);
+  font-size: clamp(0.65rem, 2vw, 1.2rem);
   display: block;
   margin-top: 1.2rem;
   color: var(--text-secondary);
   font-weight: 500;
   letter-spacing: 0.03em;
+  white-space: nowrap;
   clip-path: inset(0 100% 0 0);
   transition: clip-path 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.8s;
 }
@@ -1562,8 +1563,12 @@ input, textarea {
     justify-content: center;
   }
 
-  .welcome-title {
-    white-space: normal;
+  .welcome-card {
+    width: 95%;
+  }
+
+  .welcome-card-content {
+    padding: 1.5rem 1rem;
   }
 }
 
