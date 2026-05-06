@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JG. SUFFU — Book Designer &amp; CA Student | Portfolio</title>
+    <title>JG. SUFFU — Book Designer & CA Student | Portfolio</title>
     <meta name="description" content="Portfolio of Mir Sufiyan Ali — book designer, CA student, and creative professional. Explore my work in book design, typography, and layout.">
 
     <!-- Open Graph & Twitter Meta Tags -->
     <meta property="og:title" content="JG. SUFFU — Book Designer & CA Student | Portfolio">
-    <meta property="og:description" content="Portfolio of Mir Sufiyan Ali — book designer, CA student, and creative professional. Explore my work in book design, typography, and layout.">
+    <meta property="og:description" content="Portfolio of Mir Sufiyan Ali — book designer, CA student, and creative professional.">
     <meta property="og:image" content="logo.png">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
@@ -16,92 +16,134 @@
     <!-- Favicon -->
     <link rel="icon" href="logo.png" type="image/png">
 
-    <!-- Google Fonts: Urbanist + DM Sans -->
+    <!-- Google Fonts: Space Grotesk + Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Urbanist:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
 
-    <!-- ========== THREE.JS BACKGROUND CONTAINER ========== -->
-    <div id="bg-canvas-container"></div>
+    <!-- ========== LOADING SCREEN ========== -->
+    <div id="loader">
+        <div class="loader-inner">
+            <div class="loader-logo">
+                <img src="logo.png" alt="JG. SUFFU">
+                <span class="loader-logo-text">JG. SUFFU</span>
+            </div>
+            <div class="loader-bar">
+                <div class="loader-bar-fill"></div>
+            </div>
+            <span class="loader-text">Crafting Experience...</span>
+        </div>
+    </div>
+
+    <!-- ========== THREE.JS 3D CANVAS ========== -->
+    <canvas id="three-canvas"></canvas>
 
     <!-- ========== NAVBAR ========== -->
     <nav id="navbar">
-        <a href="#home" class="nav-logo">
+        <a href="#hero" class="nav-logo" id="nav-logo">
             <img src="logo.png" alt="JG. SUFFU Logo">
         </a>
-        <ul class="nav-links">
-            <li><a href="#home" data-section="home" class="active">Home</a></li>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="#hero" data-section="hero" class="active">Home</a></li>
             <li><a href="#about" data-section="about">About</a></li>
-            <li><a href="#portfolio" data-section="portfolio">Portfolio</a></li>
-            <li><a href="#testimonials" data-section="testimonials">Testimonials</a></li>
-            <li><a href="#contact" data-section="contact">Contact</a></li>
+            <li><a href="#portfolio" data-section="portfolio">Work</a></li>
+            <li><a href="#testimonials" data-section="testimonials">Voices</a></li>
+            <li><a href="#contact" data-section="contact">Connect</a></li>
         </ul>
-        <button id="hamburger" aria-label="Open menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
+        <div class="nav-actions">
+            <button id="hamburger" aria-label="Open menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
     </nav>
 
     <!-- Mobile Drawer -->
     <div id="drawer-overlay"></div>
     <div id="mobile-drawer">
-        <a href="#home" data-section="home" class="active">Home</a>
+        <a href="#hero" data-section="hero" class="active">Home</a>
         <a href="#about" data-section="about">About</a>
-        <a href="#portfolio" data-section="portfolio">Portfolio</a>
-        <a href="#testimonials" data-section="testimonials">Testimonials</a>
-        <a href="#contact" data-section="contact">Contact</a>
+        <a href="#portfolio" data-section="portfolio">Work</a>
+        <a href="#testimonials" data-section="testimonials">Voices</a>
+        <a href="#contact" data-section="contact">Connect</a>
     </div>
+
+    <!-- ========== SCROLL PROGRESS ========== -->
+    <div id="scroll-progress"></div>
 
     <!-- ========== MAIN CONTENT ========== -->
     <main id="main-content">
 
-        <!-- ====== HOME / WELCOME SECTION ====== -->
-        <section id="home" class="section">
-            <div class="gradient-card welcome-card" id="welcome-card">
-                <div class="gradient-card-content welcome-card-content">
-                    <h1 class="welcome-heading">
-                        <span class="welcome-title" id="welcome-title">Welcome to the world of <span class="accent-orange">Suffu</span></span>
-                        <span class="welcome-subtitle">A Place where Passion &amp; Creativity Shake Hands</span>
-                    </h1>
+        <!-- ====== HERO SECTION ====== -->
+        <section id="hero" class="section">
+            <div class="hero-content">
+                <div class="hero-badge" id="hero-badge">
+                    <span class="badge-dot"></span>
+                    Book Designer & CA Student
                 </div>
+                <h1 class="hero-title" id="hero-title">
+                    <span class="hero-line" data-delay="0">Welcome to the</span>
+                    <span class="hero-line" data-delay="1">world of <span class="text-gradient">Suffu</span></span>
+                </h1>
+                <p class="hero-subtitle" id="hero-subtitle">A place where Passion & Creativity shake hands</p>
+                <div class="hero-cta" id="hero-cta">
+                    <a href="#portfolio" class="btn-primary">
+                        <span>Explore Work</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </a>
+                    <a href="#contact" class="btn-outline">Get in Touch</a>
+                </div>
+            </div>
+            <div class="hero-scroll-indicator" id="scroll-indicator">
+                <div class="scroll-mouse">
+                    <div class="scroll-wheel"></div>
+                </div>
+                <span>Scroll</span>
             </div>
         </section>
 
         <!-- ====== ABOUT SECTION ====== -->
         <section id="about" class="section">
-            <h2 class="section-title">The <span class="accent-orange">Hands</span> behind <span class="accent-blue">Magic</span></h2>
-
-            <!-- Subsection A: Text (left) + Logo (right) -->
-            <div class="about-row" id="about-row-a">
-                <div class="about-text-card gradient-card">
-                    <div class="gradient-card-content text-card-inner">
-                        <h3>The Brand</h3>
-                        <p class="typewriter-text" id="typewriter-a" data-text="Born from a passion for pages and a respect for precision. I craft books that don't just carry words — they carry weight. Finance. Commerce. Accounting — this is my domain, and I know it well. If you need work that's structured in thought and polished in finish, you've landed in the right place. Because here, every page is built with purpose. Let's create something worth owning. &#9632;"></p>
-                    </div>
-                </div>
-                <div class="about-media-card gradient-card">
-                    <div class="gradient-card-content media-card-inner media-card-logo">
-                        <img src="logo.png" alt="JG. SUFFU Logo" class="logo-breathe">
-                    </div>
-                </div>
+            <div class="section-header reveal-blur">
+                <span class="section-label">About</span>
+                <h2 class="section-title">The <span class="text-gradient">Hands</span> behind <span class="text-gradient-blue">Magic</span></h2>
             </div>
 
-            <!-- Subsection B: Image (left) + Text (right) -->
-            <div class="about-row about-row-reverse" id="about-row-b">
-                <div class="about-media-card gradient-card">
-                    <div class="gradient-card-content media-card-inner media-card-photo">
-                        <img src="my_image.png" alt="Mir Sufiyan Ali" class="ken-burns">
+            <div class="about-grid">
+                <!-- The Brand Card -->
+                <div class="about-card reveal-3d" id="about-brand">
+                    <div class="about-card-glow"></div>
+                    <div class="about-card-content">
+                        <div class="about-card-header">
+                            <div class="about-card-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                            </div>
+                            <h3>The Brand</h3>
+                        </div>
+                        <div class="about-card-logo">
+                            <img src="logo.png" alt="JG. SUFFU Logo">
+                        </div>
+                        <p>Born from a passion for pages and a respect for precision. I craft books that don't just carry words — they carry weight. Finance. Commerce. Accounting — this is my domain, and I know it well. If you need work that's structured in thought and polished in finish, you've landed in the right place. Because here, every page is built with purpose. Let's create something worth owning.</p>
                     </div>
                 </div>
-                <div class="about-text-card gradient-card">
-                    <div class="gradient-card-content text-card-inner">
-                        <h3>The Visionary</h3>
-                        <p class="typewriter-text" id="typewriter-b" data-text="Hi, I'm Mir Sufiyan — most people just call me &quot;Suffu&quot; with love. CA student by discipline, book developer by passion, and apparently quite good at both. This work is my playground — where structured thinking meets creative instinct. If you're here, you probably need someone who gets the content and makes it look exceptional. That's exactly me. Let's build something worth reading. &#9632;"></p>
+
+                <!-- The Visionary Card -->
+                <div class="about-card reveal-3d delay-2" id="about-visionary">
+                    <div class="about-card-glow"></div>
+                    <div class="about-card-content">
+                        <div class="about-card-header">
+                            <div class="about-card-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            </div>
+                            <h3>The Visionary</h3>
+                        </div>
+                        <div class="about-card-photo">
+                            <img src="my_image.png" alt="Mir Sufiyan Ali">
+                        </div>
+                        <p>Hi, I'm Mir Sufiyan — most people just call me "Suffu" with love. CA student by discipline, book developer by passion, and apparently quite good at both. This work is my playground — where structured thinking meets creative instinct. If you're here, you probably need someone who gets the content and makes it look exceptional. That's exactly me. Let's build something worth reading.</p>
                     </div>
                 </div>
             </div>
@@ -109,104 +151,125 @@
 
         <!-- ====== PORTFOLIO SECTION ====== -->
         <section id="portfolio" class="section">
-            <h2 class="section-title">My <span class="accent-orange">Creativity</span></h2>
+            <div class="section-header reveal-blur">
+                <span class="section-label">Portfolio</span>
+                <h2 class="section-title">My <span class="text-gradient">Creativity</span></h2>
+            </div>
 
-            <div class="carousel-wrapper" id="carousel-wrapper">
-                <div class="carousel-track" id="carousel-track">
-                    <!-- Images populated by JS -->
+            <div class="portfolio-3d-wrapper reveal-blur delay-2" id="portfolio-wrapper">
+                <div class="portfolio-track" id="portfolio-track">
+                    <!-- Populated by JS -->
                 </div>
-                <button class="carousel-nav prev" id="carousel-prev" aria-label="Previous image">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="15 18 9 12 15 6"></polyline>
-                    </svg>
-                </button>
-                <button class="carousel-nav next" id="carousel-next" aria-label="Next image">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="9 18 15 12 9 6"></polyline>
-                    </svg>
-                </button>
+                <div class="portfolio-controls">
+                    <button class="port-nav prev" id="port-prev" aria-label="Previous">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+                    </button>
+                    <div class="portfolio-counter" id="portfolio-counter">
+                        <span id="port-current">1</span>
+                        <span class="port-divider">/</span>
+                        <span id="port-total">29</span>
+                    </div>
+                    <button class="port-nav next" id="port-next" aria-label="Next">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                    </button>
+                </div>
             </div>
         </section>
 
         <!-- ====== TESTIMONIALS SECTION ====== -->
         <section id="testimonials" class="section">
-            <h2 class="section-title"><span class="accent-orange">Golden</span> words of <span class="accent-blue">Clients</span></h2>
-            <div class="testimonials-grid" id="testimonials-grid">
-                <!-- Testimonial cards populated by JS -->
+            <div class="section-header reveal-blur">
+                <span class="section-label">Testimonials</span>
+                <h2 class="section-title"><span class="text-gradient">Golden</span> words of <span class="text-gradient-blue">Clients</span></h2>
+            </div>
+            <div class="testimonials-carousel" id="testimonials-grid">
+                <!-- Populated by JS -->
             </div>
         </section>
 
         <!-- ====== CONTACT SECTION ====== -->
         <section id="contact" class="section">
-            <h2 class="section-title">Let's <span class="accent-orange">shake</span> <span class="accent-blue">hands</span></h2>
+            <div class="section-header reveal-blur">
+                <span class="section-label">Contact</span>
+                <h2 class="section-title">Let's <span class="text-gradient">shake</span> <span class="text-gradient-blue">hands</span></h2>
+            </div>
 
-            <!-- Social Handles -->
-            <div class="social-handles">
-                <a href="https://wa.me/919422872892" target="_blank" rel="noopener" class="social-link" id="social-whatsapp">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
-                    WhatsApp
+            <!-- Social Links -->
+            <div class="social-orbit" id="social-orbit">
+                <a href="tel:+919422872892" class="social-pill reveal-pop delay-1" id="social-call">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    <span>9422872892</span>
                 </a>
-                <a href="mailto:mirsuffu@gmail.com" class="social-link" id="social-email">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                    mirsuffu@gmail.com
+                <a href="https://wa.me/919422872892" target="_blank" rel="noopener" class="social-pill reveal-pop delay-2" id="social-whatsapp">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+                    <span>WhatsApp</span>
                 </a>
-                <a href="tel:+919422872892" class="social-link" id="social-call">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                    9422872892
+                <a href="mailto:mirsuffu@gmail.com" class="social-pill reveal-pop delay-3" id="social-email">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                    <span>mirsuffu@gmail.com</span>
                 </a>
-                <a href="https://www.instagram.com/its_ca.suffu" target="_blank" rel="noopener" class="social-link" id="social-instagram">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
-                    its_ca.suffu
+                <a href="https://www.instagram.com/its_ca.suffu" target="_blank" rel="noopener" class="social-pill reveal-pop delay-4" id="social-instagram">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                    <span>its_ca.suffu</span>
                 </a>
-                <a href="javascript:void(0)" class="social-link coming-soon" id="social-linkedin">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
-                    LinkedIn
+                <a href="javascript:void(0)" class="social-pill coming-soon reveal-pop delay-5" id="social-linkedin">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                    <span>LinkedIn</span>
+                    <span class="coming-badge">Soon</span>
                 </a>
             </div>
 
-            <!-- Contact Form Card -->
-            <div class="contact-card">
-                <div class="contact-card-inner">
-                    <!-- Left panel -->
-                    <div class="contact-left">
+            <!-- Contact Form -->
+            <div class="contact-form-wrapper reveal-blur" id="contact-form-wrapper">
+                <div class="contact-form-glow"></div>
+                <div class="contact-split">
+                    <div class="contact-info">
                         <h3>Let's<br><span>Connect</span></h3>
                         <p>I'm just a few clicks away, eagerly waiting to see you there...!</p>
                     </div>
-                    <!-- Right panel -->
-                    <div class="contact-right">
-                        <form id="contact-form">
-                            <div class="form-group">
-                                <input type="text" id="contact-name" placeholder=" " required>
-                                <label for="contact-name">Name</label>
-                                <div class="form-underline"></div>
+                    <form id="contact-form" class="contact-fields">
+                        <div class="form-header">
+                            <div class="contact-decoration" id="contact-progress-dots">
+                                <div class="deco-circle"></div>
+                                <div class="deco-circle"></div>
+                                <div class="deco-circle"></div>
+                                <div class="deco-circle"></div>
                             </div>
-                            <div class="form-group">
-                                <input type="text" id="contact-mobile" placeholder=" " required>
-                                <label for="contact-mobile">Mobile / Email</label>
-                                <div class="form-underline"></div>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" id="contact-purpose" placeholder=" " required>
-                                <label for="contact-purpose">Purpose</label>
-                                <div class="form-underline"></div>
-                            </div>
-                            <div class="form-group">
-                                <textarea id="contact-note" placeholder=" "></textarea>
-                                <label for="contact-note">Note</label>
-                                <div class="form-underline"></div>
-                            </div>
-                            <div class="contact-buttons">
-                                <button type="button" class="btn-send btn-email" id="btn-send-email">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
-                                    Send via Email
-                                </button>
-                                <button type="button" class="btn-send btn-whatsapp" id="btn-send-whatsapp">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
-                                    Send via WhatsApp
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+                            <button type="button" id="btn-clear-form" class="btn-clear" title="Clear Form">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+                            </button>
+                        </div>
+                        <div class="field-group">
+                            <input type="text" id="contact-name" placeholder=" " required autocomplete="name">
+                            <label for="contact-name">Name</label>
+                            <div class="field-line"></div>
+                        </div>
+                        <div class="field-group">
+                            <input type="text" id="contact-mobile" placeholder=" " required>
+                            <label for="contact-mobile">Mobile / Email</label>
+                            <div class="field-line"></div>
+                        </div>
+                        <div class="field-group">
+                            <input type="text" id="contact-purpose" placeholder=" " required>
+                            <label for="contact-purpose">Purpose</label>
+                            <div class="field-line"></div>
+                        </div>
+                        <div class="field-group">
+                            <textarea id="contact-note" placeholder=" " rows="3"></textarea>
+                            <label for="contact-note">Note</label>
+                            <div class="field-line"></div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn-action btn-email-send" id="btn-send-email">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                                Send via Email
+                            </button>
+                            <button type="button" class="btn-action btn-wa-send" id="btn-send-whatsapp">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                                Send via WhatsApp
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </section>
@@ -215,25 +278,25 @@
 
     <!-- ========== FOOTER ========== -->
     <footer id="footer">
-        &copy; <span id="footer-year"></span> JG. SUFFU &mdash; Crafted with passion.
+        <div class="footer-content">
+            <img src="logo.png" alt="JG. SUFFU" class="footer-logo">
+            <p>&copy; <span id="footer-year"></span> JG. SUFFU &mdash; Crafted with passion.</p>
+        </div>
     </footer>
 
     <!-- ========== LIGHTBOX ========== -->
     <div id="lightbox">
         <button id="lightbox-close" aria-label="Close lightbox">&times;</button>
-        <button class="lightbox-nav prev" id="lightbox-prev" aria-label="Previous image">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="15 18 9 12 15 6"></polyline>
-            </svg>
+        <button class="lb-nav prev" id="lightbox-prev" aria-label="Previous image">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
         </button>
-        <button class="lightbox-nav next" id="lightbox-next" aria-label="Next image">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="9 18 15 12 9 6"></polyline>
-            </svg>
+        <button class="lb-nav next" id="lightbox-next" aria-label="Next image">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
         </button>
         <img id="lightbox-img" src="" alt="Portfolio preview">
     </div>
 
+    <!-- ========== SCRIPTS ========== -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="main.js"></script>
 </body>
